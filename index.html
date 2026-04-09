@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO Principal -->
+<title>L'Atelier des Ébauches — Conception Technique & Ingénierie Freelance</title>
+<meta name="description" content="Studio de conception technique freelance : plans, études de faisabilité, conseil en ingénierie et accompagnement auto-construction. Prix libre, open source, fichiers sources transmis intégralement.">
+<meta name="keywords" content="conception technique, ingénierie freelance, auto-construction, plans techniques, étude de faisabilité, bureau d'études, freelance ingénieur, prix libre, open source, atelier des ébauches">
+<meta name="author" content="L'Atelier des Ébauches">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%232C2C2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='26' fill='%23C8A97A' text-anchor='middle'%3E%5BA%C3%89%5D%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://atelier-des-ebauches.fr/">
+
+<!-- Google Search Console -->
+<meta name="google-site-verification" content="S0HDjSOilqnRzFjPn0Ptf7Qhtj-h4eIDD1W4u_J">
+
+<!-- Open Graph (aperçu sur réseaux sociaux) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atelier-des-ebauches.fr/">
+<meta property="og:title" content="L'Atelier des Ébauches — Conception Technique & Ingénierie Freelance">
+<meta property="og:description" content="Conception technique freelance : plans, faisabilité, conseil en ingénierie et accompagnement auto-construction. Prix libre, open source.">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Schema.org — données structurées pour Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "L'Atelier des Ébauches",
+  "description": "Studio de conception technique freelance spécialisé en études de faisabilité, plans techniques, conseil en ingénierie et accompagnement auto-construction.",
+  "url": "https://atelier-des-ebauches.fr",
+  "email": "contact@atelier-des-ebauches.fr",
+  "priceRange": "Prix libre",
+  "serviceType": ["Conception technique", "Étude de faisabilité", "Conseil en ingénierie", "Accompagnement auto-construction"],
+  "areaServed": "France",
+  "knowsLanguage": "fr"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blanc-casse: #F5F0E8;
+    --kraft: #C8A97A;
+    --kraft-light: #E8D5B0;
+    --kraft-dark: #8B6B3D;
+    --graphite: #2C2C2A;
+    --graphite-mid: #4A4A47;
+    --graphite-light: #7A7A75;
+    --grid-color: rgba(44, 44, 42, 0.07);
+    --red-accent: #C0392B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--blanc-casse);
+    color: var(--graphite);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* GRID TECHNIQUE EN FOND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(rgba(44,44,42,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,44,42,0.03) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NOISE TEXTURE */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(245, 240, 232, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(44,44,42,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--graphite);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .nav-logo .bracket {
+    color: var(--kraft-dark);
+    font-size: 1.3em;
+    line-height: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: var(--graphite-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--kraft-dark);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+
+  .nav-links a:hover { color: var(--graphite); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-tag::before {
+    content: '// REV.001';
+    color: var(--graphite-light);
+    font-size: 0.65rem;
+  }
+
+  .hero-tag::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--kraft);
+  }
+
+  h1 {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--graphite);
+    max-width: 12ch;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--kraft-dark);
+    position: relative;
+  }
+
+  h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 3px;
+    background: var(--kraft);
+    opacity: 0.5;
+    border-radius: 1px;
+  }
+
+  .hero-sub {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--graphite-mid);
+    max-width: 52ch;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+    border-left: 2px solid var(--kraft);
+    padding-left: 1.2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .btn-primary {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: var(--graphite);
+    color: var(--blanc-casse);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s, transform 0.15s;
+    position: relative;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 1px solid var(--kraft);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .btn-primary:hover { background: var(--graphite-mid); transform: translate(-2px, -2px); }
+  .btn-primary:hover::before { opacity: 1; }
+
+  .btn-ghost {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: var(--graphite);
+    border: 1px solid rgba(44,44,42,0.25);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.25s, color 0.25s;
+  }
+
+  .btn-ghost:hover { border-color: var(--kraft-dark); color: var(--kraft-dark); }
+
+  /* Blueprint déco en hero */
+  .hero-blueprint {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    animation: fadeIn 1.2s 1s forwards;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(44,44,42,0.15);
+  }
+
+  .divider-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--graphite-light);
+    white-space: nowrap;
+  }
+
+  /* ─── PILLIERS ─── */
+  .pilliers {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .section-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--graphite);
+    margin-bottom: 3.5rem;
+    max-width: 20ch;
+    line-height: 1.2;
+  }
+
+  .pilliers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .pilier-card {
+    background: rgba(245, 240, 232, 0.6);
+    border: 1px solid rgba(44,44,42,0.1);
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: background 0.3s, transform 0.25s;
+    cursor: default;
+  }
+
+  .pilier-card:hover {
+    background: rgba(245, 240, 232, 0.95);
+    transform: translateY(-4px);
+    z-index: 2;
+    box-shadow: 4px 4px 0 var(--kraft-light);
+  }
+
+  .pilier-number {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--graphite-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pilier-number::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--kraft-light);
+  }
+
+  .pilier-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1.2rem;
+    stroke: var(--kraft-dark);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .pilier-titre {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.4rem;
+    color: var(--graphite);
+    margin-bottom: 0.8rem;
+  }
+
+  .pilier-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--graphite-mid);
+  }
+
+  .pilier-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+    border: 1px solid var(--kraft);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* ─── SERVICES ─── */
+  .services {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .service-item {
+    padding: 2rem;
+    border: 1px solid rgba(44,44,42,0.1);
+    background: rgba(245,240,232,0.5);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: background 0.25s;
+  }
+
+  .service-item:hover { background: rgba(245,240,232,0.9); }
+
+  .service-num {
+    font-family: 'Courier Prime', monospace;
+    font-size: 2rem;
+    color: var(--kraft-light);
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+  }
+
+  .service-content h3 {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.2rem;
+    color: var(--graphite);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-content p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--graphite-mid);
+  }
+
+  /* PRIX LIBRE HIGHLIGHT */
+  .prix-libre-band {
+    position: relative;
+    z-index: 1;
+    background: var(--graphite);
+    color: var(--blanc-casse);
+    padding: 4rem 3rem;
+    margin: 3rem 0;
+    overflow: hidden;
+  }
+
+  .prix-libre-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,122,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,122,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .prix-libre-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .prix-libre-text .label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--kraft);
+    margin-bottom: 0.8rem;
+  }
+
+  .prix-libre-text h2 {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--blanc-casse);
+    line-height: 1.1;
+    max-width: 18ch;
+  }
+
+  .prix-libre-text p {
+    margin-top: 1.2rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.65);
+    max-width: 48ch;
+  }
+
+  .prix-display {
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .prix-display .montant {
+    font-family: 'Special Elite', cursive;
+    font-size: 5rem;
+    color: var(--kraft);
+    line-height: 1;
+  }
+
+  .prix-display .sous-titre {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── PROCESSUS ─── */
+  .processus {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .processus-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+
+  .processus-steps::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: var(--kraft-light);
+    z-index: 0;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-dot {
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid var(--kraft);
+    background: var(--blanc-casse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--kraft-dark);
+    flex-shrink: 0;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .step:hover .step-dot {
+    background: var(--graphite);
+    color: var(--kraft);
+    border-color: var(--graphite);
+  }
+
+  .step h4 {
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    color: var(--graphite);
+    margin-bottom: 0.5rem;
+  }
+
+  .step p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--graphite-mid);
+  }
+
+  /* ─── MANIFESTE / VALEURS ─── */
+  .manifeste {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .manifeste-inner {
+    border: 1px solid rgba(44,44,42,0.12);
+    padding: 3.5rem;
+    background: rgba(245,240,232,0.4);
+    position: relative;
+  }
+
+  .manifeste-inner::before {
+    content: '// MANIFESTE';
+    position: absolute;
+    top: -0.6em;
+    left: 2rem;
+    background: var(--blanc-casse);
+    padding: 0 0.5rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--kraft-dark);
+    text-transform: uppercase;
+  }
+
+  .manifeste-quote {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.5;
+    color: var(--graphite);
+    max-width: 36ch;
+  }
+
+  .manifeste-quote span {
+    color: var(--kraft-dark);
+  }
+
+  .manifeste-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(44,44,42,0.1);
+  }
+
+  .manifeste-detail h4 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .manifeste-detail p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--graphite-mid);
+  }
+
+  /* ─── À PROPOS ─── */
+  .apropos {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .apropos-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .apropos-sidebar {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .apropos-sidebar .diplome-bloc {
+    border: 1px solid rgba(44,44,42,0.12);
+    padding: 1.6rem;
+    background: rgba(245,240,232,0.5);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .apropos-sidebar .diplome-bloc::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -0.6em;
+    left: 1rem;
+    background: var(--blanc-casse);
+    padding: 0 0.4rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--kraft-dark);
+  }
+
+  .diplome-ecole {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.95rem;
+    color: var(--graphite);
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+
+  .diplome-ville {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--graphite-light);
+  }
+
+  .apropos-content p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--graphite-mid);
+    margin-bottom: 1.4rem;
+  }
+
+  .apropos-content p:last-child { margin-bottom: 0; }
+
+  .apropos-content strong {
+    color: var(--graphite);
+    font-weight: 500;
+  }
+
+  .apropos-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .apropos-tag {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--graphite-mid);
+    border: 1px solid rgba(44,44,42,0.18);
+    padding: 0.3rem 0.7rem;
+    background: rgba(245,240,232,0.6);
+  }
+
+  @media (max-width: 900px) {
+    .apropos-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .apropos-sidebar { position: static; }
+  }
+
+  /* ─── INFRA (CSS conservé mais section supprimée) ─── */
+  .infra {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .infra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .infra-item {
+    padding: 1.8rem;
+    border: 1px solid rgba(44,44,42,0.1);
+    background: rgba(245,240,232,0.4);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .infra-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--kraft);
+    flex-shrink: 0;
+    margin-top: 0.45rem;
+  }
+
+  .infra-item h4 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-bottom: 0.4rem;
+  }
+
+  .infra-item p {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--graphite-mid);
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 3rem;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--graphite-light);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    color: var(--graphite);
+    background: rgba(245,240,232,0.7);
+    border: 1px solid rgba(44,44,42,0.2);
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    resize: none;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--kraft-dark);
+    background: rgba(245,240,232,0.95);
+  }
+
+  .form-group textarea { min-height: 120px; }
+
+  .contact-info h3 {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--graphite);
+  }
+
+  .contact-info p {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--graphite-mid);
+    margin-bottom: 2rem;
+  }
+
+  .open-source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--graphite-mid);
+    border: 1px dashed rgba(44,44,42,0.25);
+    padding: 0.6rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .open-source-badge::before {
+    content: '⊡';
+    color: var(--kraft-dark);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(44,44,42,0.12);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-top: 4rem;
+  }
+
+  .footer-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.9rem;
+    color: var(--graphite);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-meta {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--graphite-light);
+    text-align: center;
+  }
+
+  .footer-tech {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--graphite-light);
+    text-align: right;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .js-ready .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .js-ready .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-blueprint { display: none; }
+    .pilliers-grid { grid-template-columns: 1fr; }
+    .services-list { grid-template-columns: 1fr; }
+    .processus-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .processus-steps::before { display: none; }
+    .manifeste-details { grid-template-columns: 1fr; }
+    .infra-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .prix-libre-inner { flex-direction: column; }
+    .divider, .pilliers, .services, .processus, .manifeste, .infra, .contact { padding: 0 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .footer-tech { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="bracket">[</span>AÉ<span class="bracket">]</span>
+    L'Atelier des Ébauches
+  </a>
+  <ul class="nav-links">
+    <li><a href="#piliers">Piliers</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#processus">Processus</a></li>
+    <li><a href="#manifeste">Manifeste</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Studio de conception technique &amp; design</div>
+  <h1>L'Atelier des <em>Ébauches</em></h1>
+  <p class="hero-sub">
+    Concevoir, prototyper, partager.<br>
+    Un studio où chaque projet commence par une ébauche honnête —<br>
+    et où le processus est aussi précieux que le résultat.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Démarrer un projet</a>
+    <a href="#manifeste" class="btn-ghost">Lire le manifeste</a>
+  </div>
+
+  <!-- SVG décoratif blueprint -->
+  <div class="hero-blueprint">
+    <svg width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.22">
+      <!-- Cercle principal -->
+      <circle cx="170" cy="170" r="140" stroke="#8B6B3D" stroke-width="0.5" stroke-dasharray="4 4"/>
+      <circle cx="170" cy="170" r="100" stroke="#8B6B3D" stroke-width="1"/>
+      <circle cx="170" cy="170" r="60" stroke="#8B6B3D" stroke-width="0.5"/>
+      <circle cx="170" cy="170" r="8" fill="#C8A97A"/>
+      <!-- Axes -->
+      <line x1="30" y1="170" x2="310" y2="170" stroke="#8B6B3D" stroke-width="0.5"/>
+      <line x1="170" y1="30" x2="170" y2="310" stroke="#8B6B3D" stroke-width="0.5"/>
+      <!-- Diagonales -->
+      <line x1="71" y1="71" x2="269" y2="269" stroke="#8B6B3D" stroke-width="0.3" stroke-dasharray="2 4"/>
+      <line x1="269" y1="71" x2="71" y2="269" stroke="#8B6B3D" stroke-width="0.3" stroke-dasharray="2 4"/>
+      <!-- Cotes -->
+      <line x1="30" y1="20" x2="310" y2="20" stroke="#8B6B3D" stroke-width="0.5"/>
+      <line x1="30" y1="15" x2="30" y2="25" stroke="#8B6B3D" stroke-width="0.5"/>
+      <line x1="310" y1="15" x2="310" y2="25" stroke="#8B6B3D" stroke-width="0.5"/>
+      <text x="170" y="16" text-anchor="middle" font-family="monospace" font-size="8" fill="#8B6B3D">280mm</text>
+      <!-- Annotations -->
+      <text x="185" y="165" font-family="monospace" font-size="7" fill="#8B6B3D">R:100</text>
+      <text x="185" y="245" font-family="monospace" font-size="7" fill="#C8A97A">// ébauche v.1</text>
+      <!-- Arc décoratif -->
+      <path d="M 120 100 Q 170 60 220 100" stroke="#C8A97A" stroke-width="0.8" fill="none"/>
+      <!-- Hachures zone -->
+      <line x1="100" y1="240" x2="115" y2="255" stroke="#8B6B3D" stroke-width="0.4"/>
+      <line x1="110" y1="240" x2="125" y2="255" stroke="#8B6B3D" stroke-width="0.4"/>
+      <line x1="120" y1="240" x2="135" y2="255" stroke="#8B6B3D" stroke-width="0.4"/>
+      <line x1="130" y1="240" x2="140" y2="250" stroke="#8B6B3D" stroke-width="0.4"/>
+      <!-- Square -->
+      <rect x="230" y="230" width="40" height="40" stroke="#8B6B3D" stroke-width="0.7" fill="none"/>
+      <line x1="230" y1="250" x2="270" y2="250" stroke="#8B6B3D" stroke-width="0.3"/>
+      <text x="250" y="244" text-anchor="middle" font-family="monospace" font-size="6" fill="#8B6B3D">DETAIL A</text>
+    </svg>
+  </div>
+</section>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 01 — Fondements</span>
+</div>
+
+<!-- PILLIERS -->
+<section class="pilliers" id="piliers">
+  <div class="section-label reveal">// Trois piliers fondamentaux</div>
+  <h2 class="section-title reveal">Ce qui me guide au quotidien</h2>
+
+  <div class="pilliers-grid">
+
+    <div class="pilier-card reveal">
+      <div class="pilier-number">01 / 03</div>
+      <svg class="pilier-icon" viewBox="0 0 40 40">
+        <path d="M5 35 L20 5 L35 35" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 25 L30 25" stroke-linecap="round"/>
+        <circle cx="20" cy="5" r="2" fill="#8B6B3D" stroke="none"/>
+        <circle cx="5" cy="35" r="2" fill="#8B6B3D" stroke="none"/>
+        <circle cx="35" cy="35" r="2" fill="#8B6B3D" stroke="none"/>
+      </svg>
+      <div class="pilier-titre">L'Expérimentation</div>
+      <p class="pilier-desc">Chaque projet est un prototype unique. Je documente et partage le processus — recherches, itérations, impasses — car le chemin est aussi instructif que la destination.</p>
+      <span class="pilier-tag">Prototype first</span>
+    </div>
+
+    <div class="pilier-card reveal">
+      <div class="pilier-number">02 / 03</div>
+      <svg class="pilier-icon" viewBox="0 0 40 40">
+        <rect x="5" y="12" width="30" height="22" rx="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 12 L13 8 Q13 5 16 5 L24 5 Q27 5 27 8 L27 12" stroke-linecap="round"/>
+        <circle cx="20" cy="23" r="4"/>
+        <path d="M20 19 L20 15" stroke-linecap="round"/>
+      </svg>
+      <div class="pilier-titre">L'Open Source</div>
+      <p class="pilier-desc">Toutes mes méthodes, fichiers sources et documentations sont transmis intégralement. Pas de boîte noire — vous restez souverains de votre projet et de vos outils.</p>
+      <span class="pilier-tag">Souveraineté</span>
+    </div>
+
+    <div class="pilier-card reveal">
+      <div class="pilier-number">03 / 03</div>
+      <svg class="pilier-icon" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="14"/>
+        <path d="M20 10 L20 30" stroke-linecap="round"/>
+        <path d="M13 14 Q20 8 27 14" stroke-linecap="round" fill="none"/>
+        <path d="M13 26 Q20 32 27 26" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="pilier-titre">Prix Libre</div>
+      <p class="pilier-desc">Aucune idée ne devrait mourir faute de moyens. Mes services sont proposés à prix libre — vous fixez une contribution selon vos possibilités et la valeur que vous y percevez.</p>
+      <span class="pilier-tag">Accès universel</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRIX LIBRE BAND -->
+<div class="prix-libre-band">
+  <div class="prix-libre-inner">
+    <div class="prix-libre-text">
+      <div class="label">// Modèle économique</div>
+      <h2>Une conception accessible à tous, sans exception.</h2>
+      <p>Le prix libre n'est pas une ristourne, c'est un choix éthique. Vous contribuez ce que vous pouvez. Je conçois ce dont vous avez besoin. La confiance est le contrat.</p>
+    </div>
+    <div class="prix-display">
+      <div class="montant">0€+</div>
+      <div class="sous-titre">// Prix fixé par vous</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 02 — À propos</span>
+</div>
+
+<!-- À PROPOS -->
+<section class="apropos" id="apropos">
+  <div class="section-label reveal">// Qui suis-je</div>
+  <h2 class="section-title reveal">Un jeune diplômé curieux,<br>à l'atelier depuis le début.</h2>
+
+  <div class="apropos-inner">
+    <div class="apropos-sidebar reveal">
+      <div class="diplome-bloc" data-label="// Diplôme 01">
+        <div class="diplome-ecole">École Supérieure du Bois</div>
+        <div class="diplome-ville">Nantes — Ingénierie bois &amp; matériaux biosourcés</div>
+      </div>
+      <div class="diplome-bloc" data-label="// Diplôme 02">
+        <div class="diplome-ecole">DN MADE Objet</div>
+        <div class="diplome-ville">École de Design Nantes Atlantique — Design &amp; conception d'objets</div>
+      </div>
+    </div>
+
+    <div class="apropos-content reveal">
+      <p>
+        Je suis <strong>jeune diplômé</strong> de deux formations complémentaires — l'une ancrée dans la rigueur de l'ingénierie des matériaux à l'École Supérieure du Bois, l'autre dans la culture du design et de la conception d'objets au DN MADE de l'École de Design Nantes Atlantique. Cette double culture, technique et sensible, est au cœur de ce que j'essaie de faire ici.
+      </p>
+      <p>
+        Au fil de mes études, j'ai eu l'occasion de <strong>mener différents projets</strong> : des objets conçus pour durer, des espaces pensés pour être construits, des études qui ont commencé par une ébauche maladroite et ont fini par tenir debout. J'ai appris autant de mes erreurs que de mes réussites.
+      </p>
+      <p>
+        L'Atelier des Ébauches, c'est ma façon de <strong>continuer à explorer</strong> — sans me limiter à un seul type de projet, sans me fermer à ce qui est inhabituel ou complexe. Je veux travailler sur des sujets variés, apprendre à chaque fois, et proposer un regard honnête et engagé à quiconque a besoin d'un coup de main pour concrétiser une idée.
+      </p>
+      <p>
+        Ce studio est aussi une manière de rendre mes services <strong>accessibles</strong> — parce que j'ai vu de bonnes idées rester dans des tiroirs faute de budget ou de contacts. Ici, ce qui compte, c'est le projet.
+      </p>
+      <div class="apropos-tags">
+        <span class="apropos-tag">Bois &amp; matériaux</span>
+        <span class="apropos-tag">Design objet</span>
+        <span class="apropos-tag">Modélisation 3D</span>
+        <span class="apropos-tag">Plans techniques</span>
+        <span class="apropos-tag">Faisabilité</span>
+        <span class="apropos-tag">Auto-construction</span>
+        <span class="apropos-tag">Open source</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 03 — Services</span>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label reveal">// Ce que je propose</div>
+  <h2 class="section-title reveal">De l'idée à la réalisation</h2>
+
+  <div class="services-list">
+    <div class="service-item reveal">
+      <div class="service-num">01</div>
+      <div class="service-content">
+        <h3>Étude de faisabilité</h3>
+        <p>Analyse technique de votre projet, identification des contraintes réelles, estimations honnêtes. Je vous dis ce qui est possible — et pourquoi certaines voies méritent d'être reconsidérées.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">02</div>
+      <div class="service-content">
+        <h3>Conception &amp; Plans</h3>
+        <p>Plans techniques, modélisation 3D, design d'objets et d'espaces. De l'esquisse initiale aux documents de fabrication, je couvre l'ensemble du processus de conception.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">03</div>
+      <div class="service-content">
+        <h3>Conseil en ingénierie</h3>
+        <p>Choix des matériaux, dimensionnement structurel, optimisation de solutions. Un regard technique expert pour que vos décisions reposent sur des bases solides.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">04</div>
+      <div class="service-content">
+        <h3>Accompagnement auto-construction</h3>
+        <p>Vous souhaitez construire vous-même ? Je vous guide pas à pas — documentation détaillée, suivi de chantier, réponses aux imprévus. L'autonomie, supportée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 03 — Processus</span>
+</div>
+
+<!-- PROCESSUS -->
+<section class="processus" id="processus">
+  <div class="section-label reveal">// Comment je travaille</div>
+  <h2 class="section-title reveal">Un processus ouvert, étape par étape</h2>
+
+  <div class="processus-steps">
+    <div class="step reveal">
+      <div class="step-dot">BRIEF</div>
+      <h4>Écoute</h4>
+      <p>Je recueille votre idée, vos contraintes et vos aspirations sans filtre ni jugement.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-dot">PROTO</div>
+      <h4>Ébauche</h4>
+      <p>Premières esquisses, tests de faisabilité, identification des zones d'incertitude.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-dot">ITER</div>
+      <h4>Itération</h4>
+      <p>Allers-retours documentés, ajustements partagés, processus transparent et collaboratif.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-dot">LIVR</div>
+      <h4>Livraison</h4>
+      <p>Fichiers sources complets, documentation ouverte, vous êtes autonomes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 04 — Manifeste</span>
+</div>
+
+<!-- MANIFESTE -->
+<section class="manifeste" id="manifeste">
+  <div class="manifeste-inner reveal">
+    <p class="manifeste-quote">
+      "Je crois que <span>la conception honnête</span> commence par reconnaître ce qu'on ne sait pas encore — et que le vrai service, c'est de vous donner les moyens de <span>ne plus avoir besoin de moi.</span>"
+    </p>
+
+    <div class="manifeste-details">
+      <div class="manifeste-detail">
+        <h4>// Humilité technique</h4>
+        <p>Pas d'expertise sur-vendue. J'indique clairement les limites de mes compétences et fais appel à d'autres expertises quand c'est nécessaire. L'honnêteté est ma première valeur.</p>
+      </div>
+      <div class="manifeste-detail">
+        <h4>// Indépendance numérique</h4>
+        <p>Pas de dépendance aux grandes plateformes, pas de boîte noire. Mes outils sont choisis pour leur transparence et leur résilience — une cohérence entre mes valeurs et mes pratiques.</p>
+      </div>
+      <div class="manifeste-detail">
+        <h4>// Bien commun</h4>
+        <p>Les méthodes développées pour un projet sont versées au bien commun. Chaque ébauche devient une ressource pour les suivants — qu'ils viennent de cet atelier ou d'ailleurs.</p>
+      </div>
+      <div class="manifeste-detail">
+        <h4>// Anti-obsolescence</h4>
+        <p>Je conçois pour durer, pour être réparable, pour être compréhensible. La complexité gratuite est un échec de conception. La simplicité robuste est mon idéal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="position:relative;z-index:1;">
+  <span class="divider-label">§ 05 — Contact</span>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="section-label">// Démarrer une collaboration</div>
+      <h3>Parlez-moi de votre idée</h3>
+      <p>Il n'y a pas de mauvais projet ni de budget insuffisant. Décrivez-moi ce que vous avez en tête — même vague, même incertain. C'est souvent là que les choses les plus intéressantes commencent.</p>
+      <p>Je vous réponds sous 48h avec une première lecture honnête de la faisabilité.</p>
+      <div class="open-source-badge">Fichiers sources transmis intégralement</div>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="nom">Nom / Prénom ou Pseudo</label>
+        <input type="text" id="nom" placeholder="Ada Lovelace">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="ada@atelier.io">
+      </div>
+      <div class="form-group">
+        <label for="service">Service souhaité</label>
+        <select id="service">
+          <option value="">— Choisir —</option>
+          <option>Étude de faisabilité</option>
+          <option>Conception / Plans / 3D</option>
+          <option>Conseil en ingénierie</option>
+          <option>Accompagnement auto-construction</option>
+          <option>Autre / Je ne sais pas encore</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="projet">Description du projet</label>
+        <textarea id="projet" placeholder="Décrivez votre idée, même imparfaitement. Les ébauches sont les bienvenues ici."></textarea>
+      </div>
+      <div class="form-group">
+        <p style="font-family:'Courier Prime',monospace;font-size:0.75rem;color:var(--graphite-light);border-left:2px solid var(--kraft);padding-left:0.8rem;line-height:1.7;">
+          // Pour joindre une ébauche (PDF, JPEG, PNG), envoyez-la directement à<br>
+          <a href="mailto:contact@atelier-des-ebauches.fr" style="color:var(--kraft-dark);">contact@atelier-des-ebauches.fr</a>
+        </p>
+      </div>
+      <div id="form-error" style="display:none;font-family:'Courier Prime',monospace;font-size:0.78rem;color:#C0392B;padding:0.5rem 0;"></div>
+      <button class="btn-primary" id="sendBtn" type="button" style="align-self:flex-start" onclick="envoyerEbauche()">Envoyer l'ébauche →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">[AÉ] L'Atelier des Ébauches</div>
+  <div class="footer-meta">
+    Prix libre · Open Source · Conception technique<br>
+    <span style="opacity:0.5">// rev.001 — 2025</span>
+  </div>
+  <div class="footer-tech">
+    <a href="mailto:contact@atelier-des-ebauches.fr">contact@atelier-des-ebauches.fr</a><br>
+    <span style="opacity:0.5">// contact</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Scroll reveal
+  document.body.classList.add('js-ready');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.boxShadow = '0 2px 20px rgba(44,44,42,0.08)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+
+  // Envoi du formulaire par mailto
+  function envoyerEbauche() {
+    const nom     = document.getElementById('nom').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value;
+    const projet  = document.getElementById('projet').value.trim();
+    const erreur  = document.getElementById('form-error');
+
+    // Validation simple
+    if (!nom || !email || !projet) {
+      erreur.textContent = '// Merci de renseigner votre nom, email et la description du projet.';
+      erreur.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      erreur.textContent = '// Adresse email invalide.';
+      erreur.style.display = 'block';
+      return;
+    }
+    erreur.style.display = 'none';
+
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+
+    const formData = new FormData();
+    formData.append('access_key', '53c89a62-8fcc-4a92-8218-aaf1ee61d3e2');
+    formData.append('subject', '[Ébauche] ' + (service || 'Nouveau projet') + ' — ' + nom);
+    formData.append('name', nom);
+    formData.append('email', email);
+    formData.append('Service souhaité', service || 'Non précisé');
+    formData.append('Description du projet', projet);
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        btn.textContent = '✓ Message envoyé';
+        btn.style.background = 'var(--kraft-dark)';
+        document.getElementById('nom').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('service').value = '';
+        document.getElementById('projet').value = '';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer l\'ébauche →';
+        erreur.textContent = '// ' + (data.message || 'Une erreur est survenue. Veuillez réessayer.');
+        erreur.style.display = 'block';
+      }
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer l\'ébauche →';
+      erreur.textContent = '// Impossible d\'envoyer le message. Vérifiez votre connexion.';
+      erreur.style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>
