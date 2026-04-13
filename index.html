@@ -996,10 +996,57 @@
     transform: translateY(0);
   }
 
+  /* ─── HAMBURGER ─── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 0.3rem;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--kraft);
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    top: 58px; left: 0; right: 0;
+    background: rgba(44,44,42,0.98);
+    z-index: 99;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(200,169,122,0.2);
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--graphite-light);
+    text-decoration: none;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(200,169,122,0.1);
+    transition: color 0.2s;
+  }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .nav-mobile a:hover { color: var(--kraft); }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    .hamburger { display: flex; }
     .hero { padding: 6rem 1.5rem 3rem; }
     .hero-blueprint { display: none; }
     .pilliers-grid { grid-template-columns: 1fr; }
@@ -1031,9 +1078,23 @@
     <li><a href="#processus">Processus</a></li>
     <li><a href="#manifeste">Manifeste</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://atelier-des-ebauches.github.io" target="_blank" style="color:var(--kraft-dark);font-weight:700;">// Projets open source →</a></li>
+    <li><a href="https://projets.atelier-des-ebauches.fr" target="_blank" style="color:var(--kraft-dark);font-weight:700;">// Projets open source →</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- NAV MOBILE -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#piliers" onclick="closeMenu()">Piliers</a>
+  <a href="#apropos" onclick="closeMenu()">À propos</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#processus" onclick="closeMenu()">Processus</a>
+  <a href="#manifeste" onclick="closeMenu()">Manifeste</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://projets.atelier-des-ebauches.fr" target="_blank" style="color:var(--kraft-dark);font-weight:700;">// Projets open source →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1454,3 +1515,30 @@
       } else {
         btn.disabled = false;
         btn.textContent = 'Envoyer l\'ébauche →';
+        erreur.textContent = '// ' + (data.message || 'Une erreur est survenue. Veuillez réessayer.');
+        erreur.style.display = 'block';
+      }
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer l\'ébauche →';
+      erreur.textContent = '// Impossible d\'envoyer le message. Vérifiez votre connexion.';
+      erreur.style.display = 'block';
+    });
+  }
+
+  // ── MENU HAMBURGER
+  function toggleMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('nav-mobile');
+    hamburger.classList.toggle('open');
+    menu.classList.toggle('open');
+  }
+
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('nav-mobile').classList.remove('open');
+  }
+</script>
+</body>
+</html>
